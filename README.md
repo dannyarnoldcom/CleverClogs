@@ -2,7 +2,7 @@
 
 Typed element access for Unity UI Toolkit. It knows all your UXML elements.
 
-**Version**: 1.0  
+**Version**: 1.0.0  
 **Unity Version**: 2022.1+ (developed on Unity 6000.5)  
 **Namespace**: `DADC.Clogs`
 
