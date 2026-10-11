@@ -109,7 +109,9 @@ See [CONTRIBUTING.md](Documentation/CONTRIBUTING.md) for contribution guidelines
 
 ## Support
 
-For issues, questions, or contributions, please refer to the project repository.
+[Join my Patreon for support](https://patreon.com/dannyarnold)
+
+Clever Clogs is free and open source. Bug reports and contributions are welcome through the project repository.
 
 ---
 

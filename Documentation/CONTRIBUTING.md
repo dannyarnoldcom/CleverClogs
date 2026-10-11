@@ -357,6 +357,8 @@ Assets/Imported/CleverClogs/
 
 ### Where to Ask Questions
 
+For help using Clever Clogs in your own project, [join my Patreon for support](https://patreon.com/dannyarnold). GitHub issues are for work on the tool itself:
+
 1. **Implementation Questions**: Open an issue with the label "question"
 2. **Bug Reports**: Open an issue with the label "bug"
 3. **Feature Requests**: Open an issue with the label "enhancement"
