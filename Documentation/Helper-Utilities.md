@@ -69,6 +69,18 @@ string installPath = PathScan.GetInstallPath();
 
 **Use Case**: Resolves the paths of the tool's own UXML and USS files
 
+#### `GetVersion()`
+
+**Purpose**: Returns the tool's version, as shown in the About panel.
+
+**Parameters**: None
+
+**Returns**: `string` such as `"1.0.0"`, or `null` if the version can't be read.
+
+**Implementation**:
+1. Asks the Package Manager, which answers when the tool is installed as a package
+2. Otherwise reads `version` from the `package.json` in the install folder
+
 ## SortElements
 
 **File**: `SortElements.cs`  

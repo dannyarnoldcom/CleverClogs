@@ -13,6 +13,8 @@ namespace DADC.Clogs
         private const string projectName = "CleverClogs";
         // A personal preference, so it is kept per user and not in the shared settings asset.
         private const string openInEditorPref = "CleverClogs.OpenInEditor";
+        private const string patreonUrl = "https://patreon.com/dannyarnold";
+        private const string documentationUrl = "https://github.com/dannyarnoldcom/CleverClogs#readme";
         private string assetPath;
         private string editorPath;
         private VisualElement root;
@@ -185,7 +187,30 @@ namespace DADC.Clogs
             SetupSettingsElements();
             toolbarMenu.menu.ClearItems();
             toolbarMenu.menu.AppendAction("Scan", (a) => { ShowMainPanel(bodyContainer); });
-            toolbarMenu.menu.AppendAction("About", (a) => { ShowAboutPopup(); });
+            toolbarMenu.menu.AppendAction("About", (a) => { ShowAbout(bodyContainer); });
+        }
+        private void ShowAbout(VisualElement root)
+        {
+            loadPanel(root, editorPath + "AboutPanel.uxml", editorPath + "CleverClogs.uss");
+            SetupAboutElements(root);
+            toolbarMenu.menu.ClearItems();
+            toolbarMenu.menu.AppendAction("Scan", (a) => { ShowMainPanel(bodyContainer); });
+            toolbarMenu.menu.AppendAction("Settings", (a) => { ShowSettings(bodyContainer); });
+        }
+        private void SetupAboutElements(VisualElement root)
+        {
+            Label versionText = root.Q<Label>("VersionText");
+            if (versionText == null) throw new System.Exception("VersionText not found");
+            string version = PathScan.GetVersion();
+            versionText.text = version == null ? "" : "Version " + version;
+
+            Button patreonButton = root.Q<Button>("PatreonButton");
+            if (patreonButton == null) throw new System.Exception("PatreonButton not found");
+            patreonButton.clicked += () => Application.OpenURL(patreonUrl);
+
+            Button documentationButton = root.Q<Button>("DocumentationButton");
+            if (documentationButton == null) throw new System.Exception("DocumentationButton not found");
+            documentationButton.clicked += () => Application.OpenURL(documentationUrl);
         }
         private void ShowMainPanel(VisualElement root)
         {
@@ -193,7 +218,7 @@ namespace DADC.Clogs
             SetupMainElements(root);
             toolbarMenu.menu.ClearItems();
             toolbarMenu.menu.AppendAction("Settings", (a) => { ShowSettings(bodyContainer); });
-            toolbarMenu.menu.AppendAction("About", (a) => { ShowAboutPopup(); });
+            toolbarMenu.menu.AppendAction("About", (a) => { ShowAbout(bodyContainer); });
         }
         private void loadPanel(VisualElement root,string uxml,string uss)
         {
@@ -309,10 +334,6 @@ namespace DADC.Clogs
             scanButton.SetEnabled(true);
         }
 
-        private void ShowAboutPopup()
-        {
-            Debug.Log("About");
-        }  
     }
     
 }

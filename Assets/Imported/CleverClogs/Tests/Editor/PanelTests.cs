@@ -55,6 +55,17 @@ namespace DADC.Clogs.Tests
         }
 
         [Test]
+        public void AboutPanelHasTheElementsTheWindowLooksUp()
+        {
+            VisualElement root = Load("AboutPanel.uxml");
+
+            Assert.That(root.Q<Label>("VersionText"), Is.Not.Null);
+            Assert.That(root.Q<Button>("PatreonButton"), Is.Not.Null);
+            Assert.That(root.Q<Button>("PatreonButton").text, Is.EqualTo("Join my Patreon for support"));
+            Assert.That(root.Q<Button>("DocumentationButton"), Is.Not.Null);
+        }
+
+        [Test]
         public void SettingsPanelHasTheElementsTheWindowLooksUp()
         {
             VisualElement root = Load("SettingsPanel.uxml");

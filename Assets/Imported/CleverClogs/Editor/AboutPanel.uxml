@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="CleverClogs.uss" />
+    <ui:VisualElement name="AboutContainer" style="flex-grow: 1; align-items: center; padding-top: 16px; padding-left: 12px; padding-right: 12px;">
+        <ui:Label tabindex="-1" text="Clever Clogs" display-tooltip-when-elided="true" name="AboutTitle" class="header" />
+        <ui:Label tabindex="-1" text="Typed element access for Unity UI Toolkit." display-tooltip-when-elided="true" style="-unity-text-align: upper-center; white-space: normal;" />
+        <ui:Label tabindex="-1" text="It knows all your UXML elements." display-tooltip-when-elided="true" style="-unity-text-align: upper-center; white-space: normal; margin-bottom: 12px;" />
+        <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="VersionText" />
+        <ui:Label tabindex="-1" text="Copyright (c) 2023-2026 Danny Arnold" display-tooltip-when-elided="true" />
+        <ui:Label tabindex="-1" text="Released under the MIT licence" display-tooltip-when-elided="true" />
+        <ui:Button text="Join my Patreon for support" display-tooltip-when-elided="true" name="PatreonButton" tooltip="https://patreon.com/dannyarnold" style="margin-top: 16px; height: 30px; min-width: 220px;" />
+        <ui:Button text="Documentation" display-tooltip-when-elided="true" name="DocumentationButton" tooltip="https://github.com/dannyarnoldcom/CleverClogs" style="min-width: 220px;" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="(C) dannyarnold.com" display-tooltip-when-elided="true" name="Copyright" style="font-size: 8px; -unity-text-align: upper-center; margin-bottom: 0;" />
+</ui:UXML>

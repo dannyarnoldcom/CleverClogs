@@ -24,5 +24,5 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:Label tabindex="-1" text="(C) danyarnold.com" display-tooltip-when-elided="true" name="Copyright" style="font-size: 8px; -unity-text-align: upper-center; margin-bottom: 0;" />
+    <ui:Label tabindex="-1" text="(C) dannyarnold.com" display-tooltip-when-elided="true" name="Copyright" style="font-size: 8px; -unity-text-align: upper-center; margin-bottom: 0;" />
 </ui:UXML>

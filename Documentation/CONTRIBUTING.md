@@ -52,22 +52,7 @@ namespace DADC.Clogs
 
 #### 4. About Panel Implementation
 
-**Status**: Placeholder method, UXML exists but unused  
-**Required**: Display version info, credits, and links
-
-**Files**:
-- `ShowAboutPopup()` method in `CleverClogsWindow.cs`
-- `AboutContainer.uxml` exists but not loaded
-
-**Required Content**:
-- Tool version and build date
-- Unity version compatibility
-- Author/organization credits
-- Link to documentation
-- Link to repository (if applicable)
-- License information
-
-**Estimated Effort**: 2-3 hours
+**Status**: Done. `AboutPanel.uxml` shows the version, copyright, licence, and buttons for Patreon and the documentation.
 
 ---
 

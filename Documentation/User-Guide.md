@@ -357,12 +357,21 @@ Assets/Settings/
 ### Main Panel Menu
 
 - **Settings**: Navigate to settings panel
-- **About**: Display about information (placeholder)
+- **About**: Show the About panel
 
 ### Settings Panel Menu
 
 - **Scan**: Return to main scanning panel
-- **About**: Display about information (placeholder)
+- **About**: Show the About panel
+
+### About Panel
+
+Shows the installed version, the copyright and licence, and two buttons:
+
+- **Join my Patreon for support**: opens the Patreon page in your browser
+- **Documentation**: opens the project page on GitHub
+
+Its menu offers **Scan** and **Settings** to get back.
 
 ---
 

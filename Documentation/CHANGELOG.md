@@ -29,7 +29,8 @@ Initial release.
 - Generates a helper class for the ticked elements
 - "Open in Editor" tick box next to Generate, which opens the new class in the code editor
 - Selecting a file that already has a helper class restores its class name and tick boxes
-- Main panel and settings panel, switched from the toolbar menu
+- Main, settings and About panels, switched from the toolbar menu
+- About panel with the version, licence, and links to Patreon and the documentation
 
 **Settings** (`ProjectSettingSO`, created at `Assets/CleverClogsSettings.asset`)
 - Search folders
@@ -52,13 +53,11 @@ Initial release.
 - Custom element types defined in an editor-only assembly definition are not detected as editor-only, so the generated file is not wrapped in `#if UNITY_EDITOR`
 - Large project scans may freeze the editor (synchronous operations)
 - No error handling in `PathScan.cs` for AssetDatabase failures
-- The About menu item does nothing yet
 - `UICollectionSO` and `WindowSO` are placeholder implementations
 - `UXMLElementTreeView.cs` is unused (empty class)
 - Several structs (`UXMLAsset`, `SearchFolder`) lack namespace declarations
 
 ### Planned
-- About panel content
 - Progress indicators for long scans
 - Async scanning support for better performance
 - Batch generation for several UXML files at once

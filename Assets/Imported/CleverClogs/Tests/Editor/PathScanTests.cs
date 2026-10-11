@@ -19,6 +19,12 @@ namespace DADC.Clogs.Tests
         }
 
         [Test]
+        public void VersionIsReadFromThePackageManifest()
+        {
+            Assert.That(PathScan.GetVersion(), Does.Match(@"^\d+\.\d+\.\d+$"));
+        }
+
+        [Test]
         public void AssetPathsOnlyContainUxml()
         {
             List<string> paths = PathScan.GetAssetPaths(new[] { PathScan.GetInstallPath().TrimEnd('/') });

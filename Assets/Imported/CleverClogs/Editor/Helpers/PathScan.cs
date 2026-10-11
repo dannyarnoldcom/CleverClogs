@@ -48,5 +48,28 @@ namespace DADC.Clogs
             }
             return null;
         }
+
+        /// <summary>
+        /// Returns the tool's version from its package.json, or null if it can't be read.
+        /// </summary>
+        public static string GetVersion()
+        {
+            string installPath = GetInstallPath();
+            if (installPath == null) return null;
+
+            UnityEditor.PackageManager.PackageInfo package = UnityEditor.PackageManager.PackageInfo.FindForAssetPath(installPath + "package.json");
+            if (package != null) return package.version;
+
+            // Copied under Assets the tool isn't a package, but its manifest is still there to read.
+            TextAsset manifest = AssetDatabase.LoadAssetAtPath<TextAsset>(installPath + "package.json");
+            if (manifest == null) return null;
+            return JsonUtility.FromJson<Manifest>(manifest.text).version;
+        }
+
+        [System.Serializable]
+        private class Manifest
+        {
+            public string version;
+        }
     }
 }

@@ -63,6 +63,13 @@ The main editor window that provides the user interface for scanning, analyzing,
 - Configures project settings UI
 - Sets up data binding
 
+##### `ShowAbout()`
+
+- Displays the About panel
+- Fills in the version from `PathScan.GetVersion()`
+- Wires the Patreon and Documentation buttons to `Application.OpenURL()`
+- Sets the toolbar menu to Scan and Settings
+
 #### Setup Methods
 
 ##### `SetupBasePanel()`
@@ -172,10 +179,6 @@ UI elements bind to ScriptableObject properties:
 ##### `ResetForm()`
 
 Currently not called but prepared for form reset functionality.
-
-##### `ShowAboutPopup()`
-
-Placeholder for future about dialog implementation.
 
 ---
 
