@@ -82,7 +82,7 @@ Clever Clogs is a Unity package named `com.dannyarnold.clever-clogs`. Install it
 https://github.com/dannyarnoldcom/CleverClogs.git?path=Assets/Imported/CleverClogs
 ```
 
-**From OpenUPM**, once the package is listed there:
+**From [OpenUPM](https://openupm.com/packages/com.dannyarnold.clever-clogs/)**, using the [OpenUPM command-line tool](https://openupm.com/docs/getting-started-cli.html):
 
 ```
 openupm add com.dannyarnold.clever-clogs
