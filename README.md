@@ -2,6 +2,8 @@
 
 Typed element access for Unity UI Toolkit. It knows all your UXML elements.
 
+![Element name strings in UI Toolkit lookups being replaced by generated enum values](Documentation/images/clever-clogs-before-after.gif)
+
 **Version**: 1.0.0  
 **Unity Version**: 2022.1+ (developed on Unity 6000.5)  
 **Namespace**: `DADC.Clogs`
