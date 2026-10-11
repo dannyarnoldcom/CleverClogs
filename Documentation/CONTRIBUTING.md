@@ -265,6 +265,8 @@ The generator and scanner are covered by EditMode tests in `Assets/Imported/Clev
 | `UXMLScanTests.cs` | Element scanning, including template instances |
 | `WriteFileTests.cs` | File output and the overwrite guard |
 | `RegeneratorTests.cs` | Recording generated classes and regenerating them |
+| `PathScanTests.cs` | Finding the install folder, UXML files and settings |
+| `PanelTests.cs` | The tool's own panels contain the elements the window looks up |
 
 `Fixtures/SampleFixtureUXML.cs` is real generator output for `Fixtures/SampleFixture.uxml`, checked in so that it is compiled with the tests. If you change what the generator emits, `CheckedInClassMatchesGeneratorOutput` fails until that file is regenerated: open the tool, generate from `SampleFixture.uxml` with the class name `SampleFixtureUXML` and the namespace `DADC.Clogs.Tests`, and replace the file with the result.
 

@@ -24,7 +24,7 @@ namespace DADC.Clogs
         private VisualElement bodyContainer;
         private ObjectField projectSettingsSO;
         private TextField projectPathTextField;
-        private Foldout searchFolders;
+        private PropertyField searchFolders;
         private TextField outputFolderTextField;
         private TextField namespaceTextField;
         private Toggle autoRegenerateToggle;
@@ -36,20 +36,12 @@ namespace DADC.Clogs
         private string status;
         private void Awake()
         {
-            assetPath = PathScan.GetInstallPath(projectName);
+            assetPath = PathScan.GetInstallPath();
             editorPath = assetPath + "Editor/";
-      
+
             if (projectSettings == null)
             {
-                projectSettings = AssetDatabase.LoadAssetAtPath<ProjectSettingSO>(assetPath + "DefaultProjectSetting.asset");
-              
-                if (projectSettings == null)
-                {
-                    Debug.Log("ProjectSettings not found, creating new one");
-                    projectSettings = ScriptableObject.CreateInstance<ProjectSettingSO>();
-                    AssetDatabase.CreateAsset(projectSettings, assetPath + "DefaultProjectSetting.asset");
-                    AssetDatabase.SaveAssets();
-                }
+                projectSettings = ProjectSettingSO.LoadOrCreate();
                 projectPath = projectSettings.projectPath;
             }
         }
@@ -115,7 +107,7 @@ namespace DADC.Clogs
         }
         private void SetupSettingsElements()
         {
-            searchFolders = root.Q<Foldout>("SearchFolders");
+            searchFolders = root.Q<PropertyField>("SearchFolders");
             if (searchFolders == null) throw new System.Exception("SearchFolders not found");
 
             projectPathTextField = root.Q<TextField>("ProjectPathTextField");

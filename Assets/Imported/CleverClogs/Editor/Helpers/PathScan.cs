@@ -29,15 +29,21 @@ namespace DADC.Clogs
             }
             return paths;
         }
-        public static string GetInstallPath(string projectName)
+        /// <summary>
+        /// Returns the folder the tool is installed in, with a trailing slash.
+        /// Works whether it was copied into Assets or installed as a package.
+        /// </summary>
+        public static string GetInstallPath()
         {
-            string[] guids = AssetDatabase.FindAssets("t:VisualTreeAsset", new string[1] { "Assets" });
+            const string windowScript = "Editor/" + nameof(CleverClogsWindow) + ".cs";
+
+            string[] guids = AssetDatabase.FindAssets(nameof(CleverClogsWindow) + " t:MonoScript", new string[2] { "Assets", "Packages" });
             foreach (string guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
-                if (path.Contains(projectName))
+                if (path.EndsWith("/" + windowScript))
                 {
-                    return path.Substring(0, path.IndexOf(projectName) + projectName.Length)+"/";
+                    return path.Substring(0, path.Length - windowScript.Length);
                 }
             }
             return null;

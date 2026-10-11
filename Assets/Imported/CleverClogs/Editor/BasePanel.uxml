@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
-    <Style src="project://database/Assets/Imported/CleverClogs/Editor/CleverClogs.uss?fileID=7433441132597879392&amp;guid=a88bcb68106f99542aad5191a7c56924&amp;type=3#CleverClogs" />
+    <Style src="CleverClogs.uss" />
     <ui:VisualElement name="StatusContainer" class="status_container">
         <uie:Toolbar style="flex-direction: row; justify-content: flex-end; background-color: rgb(96, 96, 96);">
             <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="StatusText" style="min-width: 250px; padding-left: 3px; padding-right: 0; position: absolute; left: 0; padding-top: 3px;" />

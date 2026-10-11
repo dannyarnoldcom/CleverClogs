@@ -32,23 +32,17 @@ Scans specified folders for VisualTreeAsset files.
 
 #### GetInstallPath
 
-Locates the installation directory of a project by name.
+Locates the folder the tool is installed in.
 
-**Parameters**:
-| Name | Type | Description |
-|------|------|-------------|
-| `projectName` | `string` | Name of the project folder to locate |
+**Parameters**: None
 
 **Returns**: `string` - Path to installation directory with trailing slash, or `null` if not found
-
-**Example**:
 
 **Exceptions**: None
 
 **Notes**: 
-- Returns first match found
+- Works for a copy under `Assets` and for a package under `Packages`
 - Includes trailing slash
-- Returns `null` if project not found
 
 ---
 
@@ -262,6 +256,15 @@ Namespace that generated helper classes are placed in. Leave empty for the globa
 
 ---
 
+#### DefaultPath
+
+Where `LoadOrCreate` creates the settings asset.
+
+**Type**: `const string`  
+**Value**: `"Assets/CleverClogsSettings.asset"`
+
+---
+
 #### autoRegenerate
 
 Whether recorded helper classes are regenerated when UXML changes.
@@ -283,6 +286,28 @@ One record per generated helper class. Maintained by `Regenerator`; not meant to
 ---
 
 ### Methods
+
+#### FindAll
+
+Returns every settings asset under `Assets`. Settings inside packages are ignored.
+
+**Signature**:
+```csharp
+public static List<ProjectSettingSO> FindAll()
+```
+
+---
+
+#### LoadOrCreate
+
+Returns the first settings asset found under `Assets`, creating one at `DefaultPath` if there is none.
+
+**Signature**:
+```csharp
+public static ProjectSettingSO LoadOrCreate()
+```
+
+---
 
 #### OnValidate
 

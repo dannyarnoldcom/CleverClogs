@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `outputFolder` and `generatedNamespace` settings on `ProjectSettingSO`, with fields in the settings panel
 - `elementType` field on `Element`
 - Assembly definition `DADC.Clogs.Editor` for the tool
+- Unity package manifest (`com.dannyarnold.clever-clogs`), so the tool can be installed from a git URL or OpenUPM
+- `ProjectSettingSO.FindAll()` and `LoadOrCreate()`
 - MIT licence
 - EditMode test suite for `Generate`, `Regenerator` and `UXMLScan` in `Tests/Editor/`, with its own assembly definition
 - Auto-regeneration: generated classes are recorded in the settings asset and rewritten when their UXML changes (`Regenerator`, `UxmlPostprocessor`, `GeneratedHelper`)
@@ -23,6 +25,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - `Generate` is now a static class in `DADC.Clogs` instead of an empty `MonoBehaviour`
 - `Element` constructor takes an optional third `System.Type` argument
+- The settings asset is now created at `Assets/CleverClogsSettings.asset` instead of inside the tool's folder, which is read-only when installed as a package
+- `PathScan.GetInstallPath()` takes no argument and also finds the tool under `Packages`
 - Scanning now uses the search folders from the project settings; previously it always searched all of `Assets`
 - The dropdown value change callback is registered once per panel instead of on every scan
 - Minimum Unity version documented as 2022.1 (required by `MultiColumnTreeView`, which the main panel already used)
@@ -32,6 +36,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Selecting a file used only its file name; files with the same name in different folders are now told apart by path
 - `UXMLScan.ListElements()` threw if the asset could not be loaded; it now returns an empty list
 - `UXMLScan` returned a null type name for element types without a namespace
+- The Settings panel threw "SearchFolders not found" and never opened, because it looked for a `Foldout` that did not exist. Search folders are now an editable list
+- The tool's own UXML referred to its stylesheets and templates by absolute `Assets/...` paths, which logged warnings when installed as a package. They are now relative
 
 ### Removed
 - Commented-out element analysis loop in `CleverClogsWindow.ScanButton_clicked()`

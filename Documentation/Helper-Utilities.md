@@ -48,37 +48,26 @@ public class Example : MonoBehaviour
 
 #### `GetInstallPath()`
 
-**Purpose**: Locates the installation directory of the tool by searching for the project folder name.
+**Purpose**: Locates the folder the tool is installed in, whether it was copied into `Assets` or installed as a package.
 
-**Parameters**:
-- `projectName`: Name of the project folder to locate (e.g., "CleverClogs")
+**Parameters**: None
 
 **Returns**: `string` path to the installation directory with trailing slash, or `null` if not found.
 
 **Implementation**:
-1. Finds all VisualTreeAssets in Assets folder
-2. Iterates through paths looking for `projectName`
-3. Extracts and returns the path up to and including the project name
+1. Searches `Assets` and `Packages` for the `CleverClogsWindow` script
+2. Returns the path with `Editor/CleverClogsWindow.cs` removed from the end
 
 **Example**:
 
 ```csharp
-using DADC.Clogs;
+string installPath = PathScan.GetInstallPath();
 
-public class ExampleUsage
-{
-    void ExampleMethod()
-    {
-        // Assuming the project name is "MyUnityProject"
-        string installPath = PathScan.GetInstallPath("MyUnityProject");
-        
-        // installPath should now hold the path to the project directory
-        // e.g., "C:/Projects/MyUnityProject/"
-    }
-}
+// Copied into the project:  "Assets/Imported/CleverClogs/"
+// Installed as a package:   "Packages/com.dannyarnold.clever-clogs/"
 ```
 
-**Use Case**: Resolves relative paths for loading resources (UXML, USS, ScriptableObject)
+**Use Case**: Resolves the paths of the tool's own UXML and USS files
 
 ## SortElements
 

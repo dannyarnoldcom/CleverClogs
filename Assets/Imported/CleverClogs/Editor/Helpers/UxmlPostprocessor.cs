@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,7 +22,7 @@ namespace DADC.Clogs
             for (int i = 0; i < movedAssets.Length; i++)
             {
                 if (!movedFromAssetPaths[i].EndsWith(".cs")) continue;
-                foreach (ProjectSettingSO settings in FindSettings())
+                foreach (ProjectSettingSO settings in ProjectSettingSO.FindAll())
                 {
                     Regenerator.OutputMoved(settings, movedFromAssetPaths[i], movedAssets[i]);
                 }
@@ -47,7 +46,7 @@ namespace DADC.Clogs
             // With broken scripts, custom elements can't be resolved and would be generated wrongly.
             if (EditorUtility.scriptCompilationFailed) return;
 
-            foreach (ProjectSettingSO settings in FindSettings())
+            foreach (ProjectSettingSO settings in ProjectSettingSO.FindAll())
             {
                 Regenerator.RegenerateAll(settings);
             }
@@ -60,17 +59,6 @@ namespace DADC.Clogs
                 if (path.EndsWith(".uxml")) return true;
             }
             return false;
-        }
-
-        private static List<ProjectSettingSO> FindSettings()
-        {
-            List<ProjectSettingSO> found = new List<ProjectSettingSO>();
-            foreach (string guid in AssetDatabase.FindAssets("t:" + nameof(ProjectSettingSO)))
-            {
-                ProjectSettingSO settings = AssetDatabase.LoadAssetAtPath<ProjectSettingSO>(AssetDatabase.GUIDToAssetPath(guid));
-                if (settings != null) found.Add(settings);
-            }
-            return found;
         }
     }
 }

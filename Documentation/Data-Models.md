@@ -401,7 +401,7 @@ namespace DADC.Clogs
 
 All ScriptableObject-based models persist as `.asset` files in the project:
 
-- **Location**: Typically in `Assets/Imported/CleverClogs/`
+- **Location**: Anywhere under `Assets`. Never inside the tool's own folder, which is read-only when installed as a package
 - **Format**: Unity's binary asset format
 - **Serialization**: Automatic through Unity's serialization system
 - **Version Control**: Should be committed to source control
@@ -410,7 +410,7 @@ All ScriptableObject-based models persist as `.asset` files in the project:
 
 The tool creates a default settings file at:
 ```
-Assets/Imported/CleverClogs/DefaultProjectSetting.asset
+Assets/CleverClogsSettings.asset
 ```
 
 ### User Settings

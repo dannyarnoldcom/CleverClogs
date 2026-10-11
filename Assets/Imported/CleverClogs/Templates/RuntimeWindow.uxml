@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Imported/CleverClogs/Templates/DialogueWindow.uss?fileID=7433441132597879392&amp;guid=55ee66b30162c124fa88bb7127fb16eb&amp;type=3#DialogueWindow" />
+    <Style src="DialogueWindow.uss" />
     <ui:VisualElement name="ControlsContainer" class="window_control" style="flex-grow: 1; background-color: rgb(118, 117, 117); position: absolute; top: 0; flex-direction: row; justify-content: flex-end; width: 100%;">
         <ui:Label tabindex="-1" text="Window Title" display-tooltip-when-elided="true" name="TitleLabel" style="position: absolute; left: 0;" />
         <ui:Button text="X" display-tooltip-when-elided="true" name="CloseButton" class="buttonface window_control" />

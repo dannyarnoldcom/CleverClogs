@@ -138,22 +138,12 @@ Settings are loaded in the `Awake()` method, which executes when the EditorWindo
 ```csharp
 private void Awake()
 {
-    assetPath = PathScan.GetInstallPath(projectName);
+    assetPath = PathScan.GetInstallPath();
     editorPath = assetPath + "Editor/";
     
     if (projectSettings == null)
     {
-        projectSettings = AssetDatabase.LoadAssetAtPath<ProjectSettingSO>(
-            assetPath + "DefaultProjectSetting.asset");
-        
-        if (projectSettings == null)
-        {
-            Debug.Log("ProjectSettings not found, creating new one");
-            projectSettings = ScriptableObject.CreateInstance<ProjectSettingSO>();
-            AssetDatabase.CreateAsset(projectSettings, 
-                assetPath + "DefaultProjectSetting.asset");
-            AssetDatabase.SaveAssets();
-        }
+        projectSettings = ProjectSettingSO.LoadOrCreate();
         projectPath = projectSettings.projectPath;
     }
 }
@@ -172,7 +162,7 @@ Helper classes like `PathScan`, `UXMLScan`, `SortElements`, and `Generate` use s
 ```csharp
 // PathScan - Asset discovery
 List<string> paths = PathScan.GetAssetPaths(new string[] { "Assets/UI" });
-string installPath = PathScan.GetInstallPath("CleverClogs");
+string installPath = PathScan.GetInstallPath();
 
 // UXMLScan - Element extraction
 List<Element> elements = UXMLScan.ListElements("Assets/UI/Panel.uxml");

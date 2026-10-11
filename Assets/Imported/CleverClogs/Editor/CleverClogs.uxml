@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
-    <ui:Template name="UXMLElementTreeView" src="project://database/Assets/Imported/CleverClogs/Editor/Helpers/UXMLElementTreeView.uxml?fileID=9197481963319205126&amp;guid=30a61e229bdc75941b9384bc8dd81f1e&amp;type=3#UXMLElementTreeView" />
-    <Style src="project://database/Assets/Imported/CleverClogs/Editor/CleverClogs.uss?fileID=7433441132597879392&amp;guid=a88bcb68106f99542aad5191a7c56924&amp;type=3#CleverClogs" />
+    <ui:Template name="UXMLElementTreeView" src="Helpers/UXMLElementTreeView.uxml" />
+    <Style src="CleverClogs.uss" />
     <ui:VisualElement name="HeaderTextContainer" class="header">
         <ui:Label tabindex="-1" text="DADCTools Clever Clogs" display-tooltip-when-elided="true" name="Header" class="header" />
     </ui:VisualElement>

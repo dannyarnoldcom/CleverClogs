@@ -68,9 +68,30 @@ See the [User Guide](Documentation/User-Guide.md) for the full shape of a genera
 
 ## Installation
 
-1. Copy the `CleverClogs` folder into your project's `Assets/Imported/` directory
+Clever Clogs is a Unity package named `com.dannyarnold.clever-clogs`. Install it one of these ways, then open it from `DADCTools > Clever Clogs`.
+
+**From a git URL**
+
+1. Open `Window > Package Manager`
+2. Click `+`, then "Add package from git URL..."
+3. Enter:
+
+```
+https://github.com/dannyarnoldcom/CleverClogs.git?path=Assets/Imported/CleverClogs
+```
+
+**From OpenUPM**, once the package is listed there:
+
+```
+openupm add com.dannyarnold.clever-clogs
+```
+
+**By copying the folder**
+
+1. Copy the `Assets/Imported/CleverClogs` folder from this repository to anywhere under your project's `Assets` folder
 2. Wait for Unity to compile the scripts
-3. Access the tool via `DADCTools > Clever Clogs` menu item
+
+The first time the window opens it creates `Assets/CleverClogsSettings.asset`, which holds your settings and the record of generated classes. Commit it with your project.
 
 ## Project Structure
 
@@ -94,7 +115,9 @@ CleverClogs/
 ├── Tests/
 │   └── Editor/                     # EditMode tests and fixtures
 ├── Templates/                      # UXML templates (optional)
-└── DefaultProjectSetting.asset     # Default configuration
+├── package.json                    # Unity package manifest
+├── README.md                       # Short package readme
+└── LICENSE.md                      # MIT licence
 ```
 
 ## License

@@ -1,6 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
-    <ui:Template name="SearchFolders" src="project://database/Assets/Imported/CleverClogs/Editor/Helpers/SearchFolders.uxml?fileID=9197481963319205126&amp;guid=a1dd83c86b078854295dfe65b44bb4c4&amp;type=3#SearchFolders" />
-    <Style src="project://database/Assets/Imported/CleverClogs/Editor/CleverClogs.uss?fileID=7433441132597879392&amp;guid=a88bcb68106f99542aad5191a7c56924&amp;type=3#CleverClogs" />
+    <Style src="CleverClogs.uss" />
     <ui:VisualElement name="SettingsContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 450px;">
         <ui:VisualElement name="Header" class="header_container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); padding-bottom: 4px;">
             <ui:Label tabindex="-1" text="Settings" display-tooltip-when-elided="true" style="-unity-text-align: middle-center;" />
@@ -13,7 +12,7 @@
             <ui:Toggle label="Regenerate on UXML save" name="AutoRegenerateToggle" />
             <ui:Label tabindex="-1" text="Folders to search" display-tooltip-when-elided="true" name="Title" class="options" style="margin-top: 5px;" />
             <ui:VisualElement name="Option" class="options_container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
-                <ui:Instance template="SearchFolders" name="SearchFolders" />
+                <uie:PropertyField binding-path="searchFolders" label="Folders" name="SearchFolders" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

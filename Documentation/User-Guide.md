@@ -4,8 +4,15 @@
 
 ### Installation
 
-1. Import the Clever Clogs package into your Unity project
+1. Open `Window > Package Manager`, click `+`, choose "Add package from git URL..." and enter:
+
+   ```
+   https://github.com/dannyarnoldcom/CleverClogs.git?path=Assets/Imported/CleverClogs
+   ```
+
 2. The tool will be available under `DADCTools > Clever Clogs` in the Unity menu bar
+
+The [README](../README.md#installation) lists the other ways to install it.
 
 ### Opening the Tool
 
@@ -259,7 +266,9 @@ Renames and skipped duplicates are logged as warnings in the Console.
 
 #### Default Settings
 
-Created automatically on first launch:
+Created automatically the first time the window opens, at `Assets/CleverClogsSettings.asset`. You can move or rename it anywhere under `Assets`.
+
+The settings asset lives in your project, not in the tool's own folder, because that folder is read-only when the tool is installed as a package.
 
 #### Custom Settings
 
@@ -332,7 +341,7 @@ Different team members or scenarios may require different settings:
 **Example**:
 ```
 Assets/Settings/
-├── DefaultProjectSetting.asset      # Default configuration
+├── CleverClogsSettings.asset        # Default configuration
 ├── DeveloperSettings.asset          # For development
 └── ProductionSettings.asset         # For final builds
 ```
@@ -380,7 +389,7 @@ Assets/Settings/
 **Problem**: Settings changes don't save
 
 **Solutions**:
-1. Ensure `DefaultProjectSetting.asset` exists
+1. Ensure a settings asset exists under `Assets` (by default `Assets/CleverClogsSettings.asset`)
 2. Check file isn't read-only
 3. Try manually creating new settings asset
 4. Verify Unity editor has write permissions
