@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="header">
+        <ui:Label text="Title" name="title-label" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Root">
+        <ui:Label text="Status" name="StatusText" />
+        <ui:Button text="OK" name="ok-button" />
+        <ui:Button text="Cancel" name="ok_button" />
+        <ui:Label text="Second" name="2nd-line" />
+        <ui:Label text="Duplicate" name="StatusText" />
+        <ui:Label text="Unnamed" />
+    </ui:VisualElement>
+</ui:UXML>

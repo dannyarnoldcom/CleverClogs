@@ -1,0 +1,21 @@
+.buttonface {
+    flex-shrink: 0;
+    width: 100px;
+    height: 25px;
+}
+
+.window_control {
+    width: 25px;
+    background-color: rgb(200, 59, 59);
+}
+
+.button_bar {
+    flex-grow: 0;
+    background-color: rgb(106, 106, 106);
+    position: absolute;
+    bottom: 0;
+    flex-direction: row;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    width: 100%;
+}

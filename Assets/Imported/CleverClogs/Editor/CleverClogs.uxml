@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Template name="UXMLElementTreeView" src="project://database/Assets/Imported/CleverClogs/Editor/Helpers/UXMLElementTreeView.uxml?fileID=9197481963319205126&amp;guid=30a61e229bdc75941b9384bc8dd81f1e&amp;type=3#UXMLElementTreeView" />
+    <Style src="project://database/Assets/Imported/CleverClogs/Editor/CleverClogs.uss?fileID=7433441132597879392&amp;guid=a88bcb68106f99542aad5191a7c56924&amp;type=3#CleverClogs" />
+    <ui:VisualElement name="HeaderTextContainer" class="header">
+        <ui:Label tabindex="-1" text="DADCTools Clever Clogs" display-tooltip-when-elided="true" name="Header" class="header" />
+    </ui:VisualElement>
+    <ui:VisualElement name="OptionsContainer" class="options_container" style="flex-grow: 1; flex-direction: column; -unity-text-outline-color: rgb(0, 0, 0);">
+        <ui:VisualElement name="ScanContainer" class="options" style="border-left-color: rgba(0, 0, 0, 0.67); border-right-color: rgba(0, 0, 0, 0.67); border-top-color: rgba(0, 0, 0, 0.67); border-bottom-color: rgba(0, 0, 0, 0.67); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; background-color: rgba(0, 0, 0, 0.2); min-height: 50px;">
+            <ui:Label tabindex="-1" text="Scan project for UXML" display-tooltip-when-elided="true" />
+            <ui:Button text="Scan" display-tooltip-when-elided="true" name="ScanButton" class="buttonface" />
+        </ui:VisualElement>
+        <ui:VisualElement name="DropdownContainer" class="hidden options" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
+            <ui:DropdownField label="File" index="-1" name="PathsDropdown" style="width: 100%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ResultsContainer" class="hidden" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement name="ScanResultContainer" class="options" style="flex-grow: 1; width: 100%; align-items: flex-start; height: 100%;">
+                <ui:Instance template="UXMLElementTreeView" name="UXMLElementTreeView" style="flex-grow: 1; flex-direction: column; justify-content: flex-start; min-height: 200px;" />
+            </ui:VisualElement>
+            <ui:TextField picking-mode="Ignore" label="Helper Class Name" name="HelperNameText" />
+            <ui:VisualElement name="GenerateContainer" class="options" style="padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; border-left-color: rgba(0, 0, 0, 0.21); border-right-color: rgba(0, 0, 0, 0.21); border-top-color: rgba(0, 0, 0, 0.21); border-bottom-color: rgba(0, 0, 0, 0.21); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; background-color: rgba(0, 0, 0, 0.2); min-height: 50px;">
+                <ui:Label tabindex="-1" text="Generate Helper Class" display-tooltip-when-elided="true" />
+                <ui:Button text="Generate" display-tooltip-when-elided="true" name="GenerateButton" class="buttonface" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="(C) danyarnold.com" display-tooltip-when-elided="true" name="Copyright" style="font-size: 8px; -unity-text-align: upper-center; margin-bottom: 0;" />
+</ui:UXML>

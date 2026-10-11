@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="TemplateChild" src="TemplateChild.uxml" />
+    <ui:Label text="Outer" name="outer-label" />
+    <ui:Instance template="TemplateChild" name="child-instance" />
+</ui:UXML>
