@@ -262,6 +262,26 @@ Namespace that generated helper classes are placed in. Leave empty for the globa
 
 ---
 
+#### autoRegenerate
+
+Whether recorded helper classes are regenerated when UXML changes.
+
+**Type**: `bool`  
+**Access**: Public  
+**Default**: `true`
+
+---
+
+#### generated
+
+One record per generated helper class. Maintained by `Regenerator`; not meant to be edited by hand.
+
+**Type**: `List<GeneratedHelper>`  
+**Access**: Public  
+**Default**: Empty
+
+---
+
 ### Methods
 
 #### OnValidate
@@ -275,6 +295,55 @@ Unity callback that automatically updates `projectPath` when the asset is modifi
 - Detects if asset has been moved
 - Updates `projectPath` to current location
 - Marks asset as dirty if changed
+
+---
+
+## Regenerator
+
+**Namespace**: `DADC.Clogs`  
+**File**: `Regenerator.cs`  
+**Type**: `static class`
+
+### Methods
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `GenerateAndRecord(ProjectSettingSO settings, string uxmlPath, string className, IList<Element> elements, out List<string> warnings)` | `string` | Generates a class from the selected elements, records it, and returns its asset path |
+| `Regenerate(GeneratedHelper helper)` | `RegenerateResult` | Rebuilds one class and rewrites it only if it differs |
+| `RegenerateAll(ProjectSettingSO settings)` | `int` | Regenerates every recorded class and returns how many were rewritten |
+| `Find(ProjectSettingSO settings, string uxmlPath)` | `GeneratedHelper` | The first record for a UXML file, or `null` |
+| `OutputMoved(ProjectSettingSO settings, string from, string to)` | `bool` | Updates a record after its generated file was moved |
+
+**Exceptions**: `GenerateAndRecord` throws what `Generate.WriteFile` throws. The other methods do not throw for missing files or assets; they report it through their return value.
+
+### RegenerateResult
+
+**Type**: `enum`
+
+| Value | Meaning |
+|-------|---------|
+| `Unchanged` | The file already matched |
+| `Updated` | The file was rewritten |
+| `Removed` | The generated file no longer exists |
+| `Skipped` | The UXML could not be loaded, or the target is not a generated file |
+
+---
+
+## GeneratedHelper
+
+**Namespace**: `DADC.Clogs`  
+**File**: `GeneratedHelper.cs`  
+**Type**: `class` (serializable)
+
+### Fields
+
+| Name | Type | Description |
+|------|------|-------------|
+| `uxmlGuid` | `string` | Asset ID of the source UXML file |
+| `className` | `string` | Name of the generated class |
+| `outputPath` | `string` | Asset path of the generated `.cs` file |
+| `namespaceName` | `string` | Namespace the class was generated with |
+| `excludedElements` | `string[]` | Names of elements left out of the class |
 
 ---
 

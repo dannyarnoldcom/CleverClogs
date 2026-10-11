@@ -15,7 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `elementType` field on `Element`
 - Assembly definition `DADC.Clogs.Editor` for the tool
 - MIT licence
-- EditMode test suite for `Generate` and `UXMLScan` in `Tests/Editor/`, with its own assembly definition
+- EditMode test suite for `Generate`, `Regenerator` and `UXMLScan` in `Tests/Editor/`, with its own assembly definition
+- Auto-regeneration: generated classes are recorded in the settings asset and rewritten when their UXML changes (`Regenerator`, `UxmlPostprocessor`, `GeneratedHelper`)
+- `autoRegenerate` and `generated` on `ProjectSettingSO`, with a "Regenerate on UXML save" toggle in the settings panel
+- Selecting a UXML file that already has a helper class restores its class name and tick boxes
 
 ### Changed
 - `Generate` is now a static class in `DADC.Clogs` instead of an empty `MonoBehaviour`

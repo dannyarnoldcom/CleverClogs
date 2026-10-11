@@ -34,7 +34,19 @@ Stores persistent project-wide settings for Clever Clogs, including search paths
 - **Purpose**: Namespace for generated helper classes; empty means the global namespace
 - **Default**: `""`
 
+##### `autoRegenerate`
+- **Type**: `bool`
+- **Purpose**: Whether recorded helper classes are regenerated when UXML changes
+- **Default**: `true`
+
+##### `generated`
+- **Type**: `List<GeneratedHelper>`
+- **Purpose**: One record per generated helper class, used for regeneration
+- **Default**: Empty
+
 Settings assets created before these fields existed pick up the defaults automatically.
+
+Because the records live in this asset, commit it to version control along with the generated classes so that teammates get the same regeneration behaviour.
 
 #### Methods
 
@@ -53,6 +65,40 @@ Settings assets created before these fields existed pick up the defaults automat
 #### Usage Example
 
 ````````
+
+---
+
+### GeneratedHelper
+
+**File**: `GeneratedHelper.cs`  
+**Namespace**: `DADC.Clogs`  
+**Type**: Serializable class, stored inside `ProjectSettingSO`
+
+#### Purpose
+
+Remembers how a helper class was generated so it can be regenerated when its UXML changes.
+
+#### Fields
+
+##### `uxmlGuid`
+- **Type**: `string`
+- **Purpose**: Asset ID of the source UXML file, so the record survives the file being moved or renamed
+
+##### `className`
+- **Type**: `string`
+- **Purpose**: Name of the generated class, already converted to a valid identifier
+
+##### `outputPath`
+- **Type**: `string`
+- **Purpose**: Asset path of the generated `.cs` file. Also the key that identifies the record
+
+##### `namespaceName`
+- **Type**: `string`
+- **Purpose**: Namespace the class was generated with; later changes to the setting do not affect it
+
+##### `excludedElements`
+- **Type**: `string[]`
+- **Purpose**: Names of elements that were unticked. Storing exclusions means elements added later are included by default
 
 ---
 

@@ -10,6 +10,7 @@
             <ui:TextField picking-mode="Ignore" label="Project Path" name="ProjectPathTextField" />
             <ui:TextField picking-mode="Ignore" label="Output Folder" name="OutputFolderTextField" />
             <ui:TextField picking-mode="Ignore" label="Namespace" name="NamespaceTextField" />
+            <ui:Toggle label="Regenerate on UXML save" name="AutoRegenerateToggle" />
             <ui:Label tabindex="-1" text="Folders to search" display-tooltip-when-elided="true" name="Title" class="options" style="margin-top: 5px;" />
             <ui:VisualElement name="Option" class="options_container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
                 <ui:Instance template="SearchFolders" name="SearchFolders" />

@@ -27,6 +27,7 @@ namespace DADC.Clogs
         private Foldout searchFolders;
         private TextField outputFolderTextField;
         private TextField namespaceTextField;
+        private Toggle autoRegenerateToggle;
         private Button generateButton;
         private MultiColumnTreeView elementTreeView;
         private List<string> scannedPaths = new List<string>();
@@ -129,6 +130,9 @@ namespace DADC.Clogs
             namespaceTextField = root.Q<TextField>("NamespaceTextField");
             if (namespaceTextField == null) throw new System.Exception("NamespaceTextField not found");
 
+            autoRegenerateToggle = root.Q<Toggle>("AutoRegenerateToggle");
+            if (autoRegenerateToggle == null) throw new System.Exception("AutoRegenerateToggle not found");
+
             projectSettingsSO.objectType = typeof(ProjectSettingSO);
             projectSettingsSO.value = projectSettings;
             projectSettingsSO.RegisterCallback<ChangeEvent<UnityEngine.Object>>((evt) =>
@@ -154,6 +158,9 @@ namespace DADC.Clogs
 
             namespaceTextField.bindingPath = "generatedNamespace";
             namespaceTextField.Bind(new SerializedObject(projectSettings));
+
+            autoRegenerateToggle.bindingPath = "autoRegenerate";
+            autoRegenerateToggle.Bind(new SerializedObject(projectSettings));
 
         }
 
@@ -225,18 +232,20 @@ namespace DADC.Clogs
             resultsContainer.RemoveFromClassList("hidden");
             string choice = evt.newValue;
             selectedPath = scannedPaths[index];
-            helperNameText.value =  choice.Replace(".uxml", "UXML");
-            ShowElements(UXMLScan.ListElements(selectedPath));
+            // A file that already has a helper comes back with the name and choices it was generated with.
+            GeneratedHelper helper = Regenerator.Find(projectSettings, selectedPath);
+            helperNameText.value = helper != null ? helper.className : choice.Replace(".uxml", "UXML");
+            ShowElements(UXMLScan.ListElements(selectedPath), helper != null ? helper.excludedElements : null);
         }
 
-        private void ShowElements(List<Element> elements)
+        private void ShowElements(List<Element> elements, string[] excluded)
         {
             scannedElements = elements;
             List<TreeViewItemData<int>> items = new List<TreeViewItemData<int>>();
             for (int i = 0; i < scannedElements.Count; i++)
             {
                 Element element = scannedElements[i];
-                element.selected = true;
+                element.selected = excluded == null || System.Array.IndexOf(excluded, element.name) < 0;
                 scannedElements[i] = element;
                 items.Add(new TreeViewItemData<int>(i, i));
             }
@@ -256,8 +265,7 @@ namespace DADC.Clogs
 
             try
             {
-                string source = Generate.BuildSource(helperNameText.value, selectedPath, selected, projectSettings.generatedNamespace, out List<string> warnings);
-                string path = Generate.WriteFile(projectSettings.outputFolder, helperNameText.value, source);
+                string path = Regenerator.GenerateAndRecord(projectSettings, selectedPath, helperNameText.value, scannedElements, out List<string> warnings);
                 foreach (string warning in warnings) Debug.LogWarning(projectName + ": " + warning);
                 statusText.text = "Generated " + path;
             }

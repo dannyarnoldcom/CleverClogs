@@ -86,7 +86,7 @@ The main editor window that provides the user interface for scanning, analyzing,
 ##### `SetupSettingsElements()`
 
 - Queries settings panel UI elements
-- Sets up data binding to ScriptableObject (search folders, project path, output folder, namespace)
+- Sets up data binding to ScriptableObject (search folders, project path, output folder, namespace, regenerate on save)
 - Configures change event handlers
 
 #### Core Functionality
@@ -104,13 +104,14 @@ The main editor window that provides the user interface for scanning, analyzing,
 
 - Handles UXML file selection
 - Looks up the full asset path in `scannedPaths` by dropdown index
-- Generates helper class name (e.g., "MyPanel.uxml" -> "MyPanelUXML")
+- Looks up an existing record with `Regenerator.Find()`
+- Uses the recorded class name, or generates one (e.g., "MyPanel.uxml" -> "MyPanelUXML")
 - Shows results container
-- Calls `UXMLScan.ListElements()` and passes the result to `ShowElements()`
+- Calls `UXMLScan.ListElements()` and passes the result to `ShowElements()`, with the recorded exclusions if there are any
 
 ##### `ShowElements()`
 
-- Stores the elements in `scannedElements` and marks them all as selected
+- Stores the elements in `scannedElements` and marks them as selected unless they are in the exclusions
 - Fills the element list and rebuilds it
 - Updates status with the number of named elements
 
@@ -118,8 +119,8 @@ The main editor window that provides the user interface for scanning, analyzing,
 
 **Workflow**:
 1. Collects the selected elements; stops with "No elements selected" if there are none
-2. Calls `Generate.BuildSource()` with the helper name, the UXML path and the namespace from the project settings
-3. Calls `Generate.WriteFile()` with the output folder from the project settings
+2. Calls `Regenerator.GenerateAndRecord()` with the project settings, the UXML path, the helper name and all scanned elements
+3. That builds the source, writes it to the output folder, and records the class for auto-regeneration
 4. Logs each generator warning to the Console
 5. Updates status with the generated file path
 

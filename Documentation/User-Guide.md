@@ -44,6 +44,7 @@ Configurable options:
 - **Project Path**: Auto-updated path to settings location
 - **Output Folder**: Where generated helper classes are written (default: `Assets/CleverClogsGenerated`)
 - **Namespace**: Namespace for generated helper classes (default: none)
+- **Regenerate on UXML save**: Keep generated classes up to date automatically (default: on)
 - **Search Folders**: Folders to include in UXML scans
 
 ---
@@ -90,6 +91,8 @@ Only elements with a `name` attribute are listed. Elements inside template insta
 
 Generating again for the same file overwrites the previous output. The tool refuses to overwrite a `.cs` file it did not generate.
 
+You only need to do this once per UXML file. After that the class is kept up to date for you, see [Keeping Helper Classes Up to Date](#keeping-helper-classes-up-to-date).
+
 ### Step 6: Using the Helper Class
 
 For `MainPanel.uxml` with a `ScanButton` button and a `status-text` label, the generated class looks like this:
@@ -133,6 +136,42 @@ string name = MainPanelUXML.NameOf(MainPanelUXML.Element.StatusText); // "status
 ```
 
 A property is `null` if the tree passed to the constructor doesn't contain that element.
+
+---
+
+## Keeping Helper Classes Up to Date
+
+Once a helper class has been generated, Clever Clogs remembers it and regenerates it when the UXML changes. Add, rename or remove a named element, save the file, and the class follows.
+
+### When It Runs
+
+- After any UXML file in the project is saved, imported or moved
+- After each script recompile, which catches changes such as a custom element class being renamed
+
+Every recorded helper class is checked each time, because a change to a template can alter the files that use it. A class is only rewritten if its content would differ, so saving a UXML file without changing its named elements does not trigger a recompile.
+
+### What It Remembers
+
+For each generated class the settings asset records the UXML file, the class name, the namespace it was generated with, and the elements you unticked.
+
+- **Unticked elements stay out.** Elements you add to the UXML later are included automatically.
+- **The namespace is fixed at generation time.** Changing the Namespace setting only affects classes generated afterwards. To move an existing class, generate it again from the window.
+- **Moving or renaming the UXML file is fine.** It is tracked by its asset ID, and the `UxmlPath` constant is updated.
+- **Moving the generated `.cs` file inside Unity is fine.** The record follows it.
+- **Selecting the file in the window again** restores the class name and tick boxes it was generated with.
+
+### Turning It Off
+
+- **For one file**: delete its generated `.cs` file. The record is dropped the next time regeneration runs.
+- **For everything**: untick **Regenerate on UXML save** in Settings.
+
+### When It Holds Back
+
+- **While scripts have compile errors.** Custom elements can't be resolved in that state, so regenerating would produce wrong types. It runs once the project compiles again.
+- **In batch mode**, such as command-line builds and CI. Generated classes are expected to be committed.
+- **If the target file is no longer a generated file.** A `.cs` file without the generated header is never overwritten; a warning is logged instead.
+
+Each rewritten file is logged to the Console.
 
 ---
 
@@ -409,7 +448,7 @@ A: Yes. The tool itself only runs in the editor, but the generated classes are p
 A: Yes. Edit the Helper Class Name field before clicking Generate. Property and enum names are derived from the element names in the UXML file.
 
 **Q: Can I edit a generated file?**  
-A: Changes are lost the next time you generate for the same UXML file. Rename the element in the UXML file and regenerate instead.
+A: Changes are lost the next time the class is regenerated, which now happens automatically when the UXML is saved. Rename the element in the UXML file instead.
 
 **Q: Is the source code available?**  
 A: Yes, all source files are included in the Editor folder.

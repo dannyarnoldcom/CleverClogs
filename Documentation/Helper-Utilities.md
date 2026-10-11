@@ -307,12 +307,115 @@ See the [User Guide](User-Guide.md) for the shape of the generated class.
 
 ---
 
+## Regenerator
+
+**File**: `Regenerator.cs`  
+**Namespace**: `DADC.Clogs`  
+**Type**: `static class`
+
+### Purpose
+
+Generates helper classes on behalf of the editor window, records how each one was made in `ProjectSettingSO.generated`, and regenerates them from those records.
+
+### Methods
+
+#### `GenerateAndRecord()`
+
+**Signature**:
+```csharp
+public static string GenerateAndRecord(ProjectSettingSO settings, string uxmlPath, string className, IList<Element> elements, out List<string> warnings)
+```
+
+**Purpose**: Builds and writes a helper class from the elements whose `selected` flag is set, then adds or updates the matching `GeneratedHelper` record. Names of unselected elements are stored as exclusions.
+
+**Returns**: The asset path of the written class.
+
+**Notes**:
+- Uses `settings.outputFolder` and `settings.generatedNamespace`
+- Records are keyed by output path, so generating the same class again updates its record, and generating the same UXML under another class name adds a second one
+- Throws the same exceptions as `Generate.WriteFile()`
+
+#### `Regenerate()`
+
+**Signature**:
+```csharp
+public static RegenerateResult Regenerate(GeneratedHelper helper)
+```
+
+**Purpose**: Rebuilds one helper class from its UXML and rewrites the file only if the result differs.
+
+**Returns**:
+
+| Result | Meaning |
+|--------|---------|
+| `Unchanged` | The file already matches; nothing was written. Line-ending differences are ignored |
+| `Updated` | The file was rewritten |
+| `Removed` | The generated file no longer exists. The caller should drop the record |
+| `Skipped` | The UXML could not be loaded, or the target file is not a generated file |
+
+#### `RegenerateAll()`
+
+**Signature**:
+```csharp
+public static int RegenerateAll(ProjectSettingSO settings)
+```
+
+**Purpose**: Runs `Regenerate()` for every record, removes records that report `Removed`, and logs each rewritten file.
+
+**Returns**: The number of files rewritten. Returns 0 without doing anything if `settings.autoRegenerate` is false.
+
+#### `Find()`
+
+**Signature**:
+```csharp
+public static GeneratedHelper Find(ProjectSettingSO settings, string uxmlPath)
+```
+
+**Purpose**: Returns the first record for a UXML file, or `null`. The window uses it to restore the class name and tick boxes.
+
+#### `OutputMoved()`
+
+**Signature**:
+```csharp
+public static bool OutputMoved(ProjectSettingSO settings, string from, string to)
+```
+
+**Purpose**: Points a record at a generated class that was moved or renamed in the project. Returns `false` if no record had the old path.
+
+---
+
+## UxmlPostprocessor
+
+**File**: `UxmlPostprocessor.cs`  
+**Namespace**: `DADC.Clogs`  
+**Type**: `AssetPostprocessor` (internal)
+
+### Purpose
+
+Triggers `Regenerator.RegenerateAll()` for every `ProjectSettingSO` asset in the project.
+
+### Triggers
+
+- `OnPostprocessAllAssets`, when any `.uxml` file was imported or moved
+- `[InitializeOnLoadMethod]`, after every script reload
+
+### Behaviour
+
+- The work is deferred with `EditorApplication.delayCall`, so scripts are never written from inside an asset import. Several triggers in one import collapse into one run.
+- Does nothing in batch mode (`Application.isBatchMode`)
+- Does nothing while `EditorUtility.scriptCompilationFailed` is true
+- When a `.cs` file is moved, calls `Regenerator.OutputMoved()` so records follow generated files
+
+A regeneration that rewrites a file causes a recompile, which triggers one more run. That run finds everything unchanged, so it stops there.
+
+---
+
 ## Utility Usage Workflow
 
 1. `PathScan.GetAssetPaths()` finds the UXML files
 2. `UXMLScan.ListElements()` lists the named elements of one file
-3. `Generate.BuildSource()` turns those elements into source code
-4. `Generate.WriteFile()` saves the source and imports it
+3. `Regenerator.GenerateAndRecord()` calls `Generate.BuildSource()` and `Generate.WriteFile()`, then records the result
+4. `UxmlPostprocessor` calls `Regenerator.RegenerateAll()` whenever UXML changes
 
 `SortElements.Sort()` is available for grouping elements by type but is not used by the generation workflow.
 

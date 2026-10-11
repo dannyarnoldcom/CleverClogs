@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace DADC.Clogs
         public string[] searchFolders = { "Assets" };
         public string outputFolder = "Assets/CleverClogsGenerated";
         public string generatedNamespace = "";
+        public bool autoRegenerate = true;
+        public List<GeneratedHelper> generated = new List<GeneratedHelper>();
 
         
         #if UNITY_EDITOR

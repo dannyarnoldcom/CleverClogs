@@ -17,6 +17,7 @@ Clever Clogs is a Unity Editor extension that replaces the string literals used 
 3. **Select a File**: Choose a UXML file from the dropdown menu
 4. **Choose Elements**: Untick any named elements you don't want in the helper class
 5. **Generate**: Click "Generate" to write the helper class to the output folder
+6. **Carry on**: From then on the class is regenerated whenever you save the UXML file
 
 ## Generated Code
 
@@ -45,6 +46,7 @@ See the [User Guide](Documentation/User-Guide.md) for the full shape of a genera
 - **Configurable Search Paths**: Define custom folders to search for UXML files
 - **Element Analysis**: List the named elements in a UXML file with their types
 - **Helper Generation**: Generate a class with an enum of element names and a typed property per element
+- **Auto-Regeneration**: Generated classes are kept up to date when their UXML file is saved
 - **Project Settings**: Persistent configuration through ScriptableObject settings
 
 ## Documentation Structure
@@ -85,6 +87,8 @@ CleverClogs/
 │       ├── UXMLScan.cs            # UXML parsing
 │       ├── SortElements.cs        # Element organization
 │       ├── Generate.cs            # Helper class generation
+│       ├── Regenerator.cs         # Keeps generated classes up to date
+│       ├── UxmlPostprocessor.cs   # Triggers regeneration on UXML save
 │       ├── ProjectSettingSO.cs    # Settings storage
 │       └── [Other helpers]
 ├── Tests/

@@ -48,6 +48,8 @@ Clever Clogs follows a modular architecture with clear separation of concerns be
 │  │   • searchFolders[]                          │  │
 │  │   • outputFolder                             │  │
 │  │   • generatedNamespace                       │  │
+│  │   • autoRegenerate                           │  │
+│  │   • generated[]                              │  │
 │  │   • OnValidate()                             │  │
 │  └──────────────────────────────────────────────┘  │
 │                                                     │
@@ -90,6 +92,8 @@ Clever Clogs follows a modular architecture with clear separation of concerns be
 - `UXMLScan.cs` - UXML file parsing and element extraction
 - `SortElements.cs` - Element organization and categorization
 - `Generate.cs` - Helper class generation (enum of element names plus typed properties)
+- `Regenerator.cs` - Records generated classes and regenerates them
+- `UxmlPostprocessor.cs` - Triggers regeneration when UXML is saved
 
 **Key Responsibilities**:
 - Scanning project assets
@@ -208,7 +212,15 @@ string path = Generate.WriteFile("Assets/CleverClogsGenerated", "PanelUXML", sou
 1. The user unticks unwanted elements and clicks Generate
 2. `Generate.BuildSource()` converts the selected elements into the source of a helper class
 3. `Generate.WriteFile()` writes it to `ProjectSettingSO.outputFolder` and imports it
-4. Unity recompiles and the helper class becomes available to project code
+4. `Regenerator` records the class in `ProjectSettingSO.generated`
+5. Unity recompiles and the helper class becomes available to project code
+
+### Regeneration Workflow
+
+1. A UXML file is saved, or scripts finish reloading
+2. `UxmlPostprocessor` schedules a run with `EditorApplication.delayCall`
+3. `Regenerator.RegenerateAll()` rebuilds the source for every recorded class
+4. Only classes whose source differs are rewritten, so unrelated UXML edits cause no recompile
 
 ## Extension Points
 
