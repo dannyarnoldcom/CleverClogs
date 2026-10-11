@@ -39,6 +39,8 @@ namespace DADC.Clogs.Tests
             Assert.That(root.Q<TextField>("HelperNameText"), Is.Not.Null);
             Assert.That(root.Q<Button>("ScanButton"), Is.Not.Null);
             Assert.That(root.Q<Button>("GenerateButton"), Is.Not.Null);
+            Assert.That(root.Q<Toggle>("OpenInEditorToggle"), Is.Not.Null);
+            Assert.That(root.Q<Toggle>("OpenInEditorToggle").text, Is.EqualTo("Open in Editor"));
         }
 
         [Test]

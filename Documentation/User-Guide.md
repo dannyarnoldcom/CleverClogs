@@ -40,7 +40,7 @@ The main panel consists of several key areas:
 
 3. **Results Section** (Bottom)
    - Lists the named elements in the selected file, with a tick box, type and name for each
-   - Generate button
+   - Open in Editor tick box and Generate button
 
 ### Settings Panel
 
@@ -92,9 +92,13 @@ Only elements with a `name` attribute are listed. Elements inside template insta
 
 ### Step 5: Generating the Helper Class
 
-1. Click **Generate**
-2. The class is written to `<Output Folder>/<Helper Class Name>.cs` and imported
-3. The status bar shows "Generated" followed by the file path
+1. Leave **Open in Editor** ticked if you want to see the result straight away
+2. Click **Generate**
+3. The class is written to `<Output Folder>/<Helper Class Name>.cs` and imported
+4. The status bar shows "Generated" followed by the file path
+5. If **Open in Editor** is ticked, the class opens in your code editor
+
+**Open in Editor** is ticked by default. Your choice is remembered on your machine and is not shared with teammates. It only applies when you click Generate; classes regenerated automatically are never opened.
 
 Generating again for the same file overwrites the previous output. The tool refuses to overwrite a `.cs` file it did not generate.
 

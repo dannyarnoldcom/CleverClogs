@@ -19,6 +19,7 @@
             <ui:TextField picking-mode="Ignore" label="Helper Class Name" name="HelperNameText" />
             <ui:VisualElement name="GenerateContainer" class="options" style="padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; border-left-color: rgba(0, 0, 0, 0.21); border-right-color: rgba(0, 0, 0, 0.21); border-top-color: rgba(0, 0, 0, 0.21); border-bottom-color: rgba(0, 0, 0, 0.21); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; background-color: rgba(0, 0, 0, 0.2); min-height: 50px;">
                 <ui:Label tabindex="-1" text="Generate Helper Class" display-tooltip-when-elided="true" />
+                <ui:Toggle text="Open in Editor" name="OpenInEditorToggle" tooltip="Open the generated class in your code editor" style="flex-grow: 1; justify-content: flex-end; margin-right: 6px;" />
                 <ui:Button text="Generate" display-tooltip-when-elided="true" name="GenerateButton" class="buttonface" />
             </ui:VisualElement>
         </ui:VisualElement>

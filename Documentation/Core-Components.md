@@ -75,6 +75,7 @@ The main editor window that provides the user interface for scanning, analyzing,
 
 - Queries main panel UI elements
 - Registers the Scan and Generate button click events
+- Sets the Open in Editor toggle from `EditorPrefs` and saves it back when it changes
 - Registers the dropdown value change callback
 - Calls `SetupElementTreeView()`
 
@@ -121,8 +122,9 @@ The main editor window that provides the user interface for scanning, analyzing,
 1. Collects the selected elements; stops with "No elements selected" if there are none
 2. Calls `Regenerator.GenerateAndRecord()` with the project settings, the UXML path, the helper name and all scanned elements
 3. That builds the source, writes it to the output folder, and records the class for auto-regeneration
-4. Logs each generator warning to the Console
-5. Updates status with the generated file path
+4. If the Open in Editor toggle is ticked, opens the class with `AssetDatabase.OpenAsset()`
+5. Logs each generator warning to the Console
+6. Updates status with the generated file path
 
 I/O and argument errors are caught, logged to the Console, and reported as "Generate failed, see console".
 

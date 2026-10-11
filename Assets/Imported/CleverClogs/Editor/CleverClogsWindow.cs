@@ -11,6 +11,8 @@ namespace DADC.Clogs
         private ProjectSettingSO projectSettings;
         private string projectPath;
         private const string projectName = "CleverClogs";
+        // A personal preference, so it is kept per user and not in the shared settings asset.
+        private const string openInEditorPref = "CleverClogs.OpenInEditor";
         private string assetPath;
         private string editorPath;
         private VisualElement root;
@@ -29,6 +31,7 @@ namespace DADC.Clogs
         private TextField namespaceTextField;
         private Toggle autoRegenerateToggle;
         private Button generateButton;
+        private Toggle openInEditorToggle;
         private MultiColumnTreeView elementTreeView;
         private List<string> scannedPaths = new List<string>();
         private List<Element> scannedElements = new List<Element>();
@@ -70,6 +73,10 @@ namespace DADC.Clogs
             generateButton = root.Q<Button>("GenerateButton");
             if (generateButton == null) throw new System.Exception("GenerateButton not found");
             generateButton.clicked += GenerateButton_clicked;
+            openInEditorToggle = root.Q<Toggle>("OpenInEditorToggle");
+            if (openInEditorToggle == null) throw new System.Exception("OpenInEditorToggle not found");
+            openInEditorToggle.SetValueWithoutNotify(EditorPrefs.GetBool(openInEditorPref, true));
+            openInEditorToggle.RegisterValueChangedCallback((evt) => EditorPrefs.SetBool(openInEditorPref, evt.newValue));
             elementTreeView = root.Q<MultiColumnTreeView>();
             if (elementTreeView == null) throw new System.Exception("MultiColumnTreeView not found");
             dropdownField.RegisterValueChangedCallback(DropdownField_ValueChanged);
@@ -260,12 +267,19 @@ namespace DADC.Clogs
                 string path = Regenerator.GenerateAndRecord(projectSettings, selectedPath, helperNameText.value, scannedElements, out List<string> warnings);
                 foreach (string warning in warnings) Debug.LogWarning(projectName + ": " + warning);
                 statusText.text = "Generated " + path;
+                if (openInEditorToggle.value) OpenInEditor(path);
             }
             catch (System.Exception e) when (e is System.IO.IOException || e is System.ArgumentException || e is System.UnauthorizedAccessException)
             {
                 statusText.text = "Generate failed, see console";
                 Debug.LogError(projectName + ": " + e.Message);
             }
+        }
+
+        private static void OpenInEditor(string path)
+        {
+            Object script = AssetDatabase.LoadMainAssetAtPath(path);
+            if (script != null) AssetDatabase.OpenAsset(script);
         }
 
         private string GetFilename(string path)

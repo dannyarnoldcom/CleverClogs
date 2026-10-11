@@ -27,6 +27,7 @@ Initial release.
 - Scans the project for UXML files via `PathScan`, limited to the configured search folders
 - Lists the named elements of the selected file via `UXMLScan`, with a tick box, type and name for each
 - Generates a helper class for the ticked elements
+- "Open in Editor" tick box next to Generate, which opens the new class in the code editor
 - Selecting a file that already has a helper class restores its class name and tick boxes
 - Main panel and settings panel, switched from the toolbar menu
 
